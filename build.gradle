@@ -27,6 +27,8 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	// https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-xml
 	implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.13.3'
+	implementation "io.springfox:springfox-swagger2:3.0.0"
+	implementation("io.springfox:springfox-boot-starter:3.0.0")
 
 }
 

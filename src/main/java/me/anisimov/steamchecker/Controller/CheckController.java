@@ -31,7 +31,7 @@ public class CheckController {
         return ResponseEntity.ok(infos);
     }
 
-    @GetMapping("/find")
+    @GetMapping(value="/find",produces = "Application/Json")
     public ResponseEntity<Info> checkSteamId(@RequestParam String nick) {
         String steamId = steamCheckService.checkSteamId(nick);
         Info info = steamCheckService.checkSingleClient(steamId);
