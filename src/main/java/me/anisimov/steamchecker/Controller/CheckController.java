@@ -1,6 +1,8 @@
 package me.anisimov.steamchecker.Controller;
 
+import me.anisimov.steamchecker.model.ApiResponse;
 import me.anisimov.steamchecker.model.Info;
+
 import me.anisimov.steamchecker.service.SteamCheckService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.websocket.Endpoint;
 import java.util.List;
 
 @RestController
@@ -37,5 +40,13 @@ public class CheckController {
         Info info = steamCheckService.checkSingleClient(steamId);
         return ResponseEntity.ok(info);
     }
+    @GetMapping(value = "/important",produces = "Application/Json")
+    public ResponseEntity<ApiResponse> checkImportant(@RequestParam String nick) {
+        String steamId = steamCheckService.checkSteamId(nick);
+        ApiResponse apiResponse =  steamCheckService.checkImportantClient(steamId);
+
+        return ResponseEntity.ok(apiResponse);
+    }
+
 
 }

@@ -3,6 +3,7 @@ package me.anisimov.steamchecker.service;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import me.anisimov.steamchecker.model.ApiResponse;
 import me.anisimov.steamchecker.model.BasicInfo;
 import me.anisimov.steamchecker.model.Info;
 import me.anisimov.steamchecker.model.SteamApiResponse;
@@ -56,4 +57,19 @@ public class SteamCheckService {
 
         return steamApiResponse.getResponse().getPlayers().get(0);
     }
+    public ApiResponse checkImportantClient(String steamId) {
+        String fullUrl = CHECK_URL + "?key=" + API_KEY + "&" + "steamids=" + steamId;
+        SteamApiResponse steamApiResponse = steamSender.exchange(fullUrl, HttpMethod.GET, null, SteamApiResponse.class).getBody();
+        Info info = steamApiResponse.getResponse().getPlayers().get(0);
+        ApiResponse apiResponse = new ApiResponse();
+        apiResponse.setName(info.getPersonaname());
+        apiResponse.setAvatar(info.getAvatar());
+        apiResponse.setGameId(info.getGameid());
+        apiResponse.setGameLogo(null);
+        apiResponse.setGameExtraInfo(info.getGameextrainfo());
+        return apiResponse;
+    }
+
+
+
 }
